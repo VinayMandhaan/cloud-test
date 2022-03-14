@@ -18,7 +18,7 @@ export const getPosts = () => async dispatch => {
     }
 }
 
-export const addPost = (id,title,desc) => async dispatch => {
+export const addPost = (id,title,desc,navigation) => async dispatch => {
     try{
         const data = {
             id:id,
@@ -29,6 +29,7 @@ export const addPost = (id,title,desc) => async dispatch => {
             type:CREATE_POST,
             payload:data
         })
+        navigation.navigate('Home')
 
     }catch(err){
         console.log(err)

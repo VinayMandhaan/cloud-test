@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ const AddPost = (props) => {
     let postData = useSelector(state => state.posts.posts);
 
     const addPosts = () => {
-        dispatch(addPost(postData.length + 1, title, description))
+        dispatch(addPost(postData.length + 1, title, description, props.navigation))
     }
 
     let [fontsLoaded, error] = useFonts({
@@ -78,6 +78,7 @@ const AddPost = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        minHeight: Math.round(Dimensions.get('window').height)
     },
     mainContainer: {
         flex: 1,
