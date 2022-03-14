@@ -10,7 +10,9 @@ export default function (state = initalState, action) {
     switch (type) {
         case GET_POST:
             return {
-                ...state
+                ...state,
+                loading:false,
+                posts:payload
             }
         case CREATE_POST:
             return {
