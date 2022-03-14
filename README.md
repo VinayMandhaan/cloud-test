@@ -1,6 +1,6 @@
 # Cloud- React Native Test
 
-#### The application is developed using React Native Expo for faster development and library handling.
+#### The application is developed using React Native Expo.
 
 ## To Run The Project
 #### - Clone The Git Repo
