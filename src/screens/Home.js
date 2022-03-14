@@ -5,7 +5,7 @@ import { getPosts } from '../actions/posts'
 import { Ionicons } from '@expo/vector-icons';
 
 
-const Home = () => {
+const Home = (props) => {
     const dispatch = useDispatch()
     let postData = useSelector(state => state.posts.posts);
 
@@ -33,7 +33,7 @@ const Home = () => {
             <View style={styles.header}>
                 <Ionicons name="arrow-back-circle-outline" size={32} color="black" />
                 <Text style={styles.mainHeading}>POSTS</Text>
-                <Ionicons name="add-circle-outline" size={32} color="black" />
+                <Ionicons onPress={()=>props.navigation.navigate('AddPost')} name="add-circle-outline" size={32} color="black" />
             </View>
             <FlatList
                 data={postData}

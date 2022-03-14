@@ -2,12 +2,14 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import Home from './src/screens/Home';
 import { Provider } from 'react-redux'
 import store from './src/store'
+import AddPosts from './src/screens/AddPost';
+import Routes from './src/routes/Routes';
 
 export default function App() {
   return (
     <Provider store={store}>
     <View style={styles.container}>
-      <Home/>
+      <Routes/>
     </View>
     </Provider>
   );

@@ -15,8 +15,10 @@ export default function (state = initalState, action) {
                 posts:payload
             }
         case CREATE_POST:
+            console.log(payload)
             return {
-                ...state
+                ...state,
+                posts: [payload,...state.posts ]
             }
         default:
             return state
