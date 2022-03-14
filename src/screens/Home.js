@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../actions/posts'
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Home = () => {
@@ -13,12 +14,12 @@ const Home = () => {
     }
 
     const renderData = ({ item }) => (
-        <View style={{ backgroundColor: 'white', margin: 20, padding: 15, alignItems: 'center', borderRadius:15, elevation:2 }}>
-            <View style={{ display: 'flex', flexDirection: 'row', marginBottom:10 }}>
-                <Text style={{ fontWeight: 'bold', marginRight: 2, textAlign: 'center' }}>{item.id}.</Text>
-                <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>{item.title.toUpperCase()}</Text>
+        <View style={styles.postContainer}>
+            <View style={styles.titleContainer}>
+                <Text style={styles.post}>{item.id}.</Text>
+                <Text style={styles.postTitle}>{item.title.toUpperCase()}</Text>
             </View>
-            <Text style={{ textAlign: 'center' }}>{item.body}</Text>
+            <Text style={styles.postBody}>{item.body}</Text>
         </View>
     )
 
@@ -28,9 +29,11 @@ const Home = () => {
 
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#F5F5F5' }}>
-            <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>POSTS</Text>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Ionicons name="arrow-back-circle-outline" size={32} color="black" />
+                <Text style={styles.mainHeading}>POSTS</Text>
+                <Ionicons name="add-circle-outline" size={32} color="black" />
             </View>
             <FlatList
                 data={postData}
@@ -39,5 +42,47 @@ const Home = () => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F5F5F5'
+    },
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        margin: 20
+    },
+    mainHeading: {
+        fontSize: 18, 
+        fontWeight: 'bold'
+    },
+    postContainer: {
+        backgroundColor: 'white', 
+        margin: 20, 
+        padding: 15, 
+        alignItems: 'center', 
+        borderRadius: 15, 
+        elevation: 2 
+    },
+    titleContainer: {
+        display: 'flex', 
+        flexDirection: 'row',
+        marginBottom: 10
+    },
+    post:{
+        fontWeight: 'bold', marginRight: 2, textAlign: 'center' 
+    },
+    postTitle:{
+        textAlign: 'center', fontWeight: 'bold'
+    },
+    postBody:{
+        textAlign: 'center'
+    }
+
+});
+
 
 export default Home
