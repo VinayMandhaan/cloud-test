@@ -4,6 +4,8 @@ import { TextInput } from 'react-native-paper';
 import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
 import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
+import Toast from 'react-native-toast-message';
+
 
 
 
@@ -25,6 +27,26 @@ const Login = (props) => {
       </View>
     )
   }
+
+  const checkValidation = () => {
+    if(validateEmail(email) && email.length > 0 && password.length > 0){
+      userLogin()
+    }else {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Kindly Fill All The Fields'
+    });
+    }
+  }
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
 
 
   const userLogin = () => {
@@ -76,7 +98,7 @@ const Login = (props) => {
           />
         </View>
       </View>
-        <TouchableOpacity onPress={()=>userLogin()} style={styles.btnStyle}>
+        <TouchableOpacity onPress={()=>checkValidation()} style={styles.btnStyle}>
             <Text style={styles.btnTxt}>SIGN IN</Text>
         </TouchableOpacity>
     </View>
