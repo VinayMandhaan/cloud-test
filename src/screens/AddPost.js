@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from '../actions/posts';
+import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
 
 
 
@@ -15,46 +16,60 @@ const AddPost = (props) => {
     let postData = useSelector(state => state.posts.posts);
 
     const addPosts = () => {
-        dispatch(addPost(postData.length + 1,title,description))
+        dispatch(addPost(postData.length + 1, title, description))
     }
+
+    let [fontsLoaded, error] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_600SemiBold,
+        Montserrat_700Bold
+      })
+    
+      if (!fontsLoaded) {
+        return (
+          <View>
+            <Text>Loading</Text>
+          </View>
+        )
+      }
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Ionicons onPress={()=>props.navigation.navigate('Home')} name="arrow-back-circle-outline" size={32} color="black" />
+                <Ionicons onPress={() => props.navigation.navigate('Home')} name="arrow-back-circle-outline" size={32} color="black" />
                 <Text style={styles.mainHeading}>ADD POSTS</Text>
                 <Text></Text>
             </View>
             <View style={styles.mainContainer}>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={{ backgroundColor: 'white' }}
-                    mode="outlined"
-                    label={"POST TITLE"}
-                    value={title}
-                    onChangeText={(title) => setTitle(title)}
-                    placeholder={"ENTER TITLE"}
-                    activeOutlineColor='grey'
-                // theme={{ fonts: { regular: { fontFamily: 'Montserrat_400Regular' } } }}
-                />
-            </View>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={{ backgroundColor: 'white' }}
-                    mode="outlined"
-                    label={"POST DESCRIPTION"}
-                    value={description}
-                    onChangeText={(description) => setDescription(description)}
-                    placeholder={"ENTER DESCRIPTION"}
-                    activeOutlineColor='grey'
-                    multiline={true}
-                    numberOfLines={4}
-                // theme={{ fonts: { regular: { fontFamily: 'Montserrat_400Regular' } } }}
-                />
-            </View>
-            <TouchableOpacity onPress={()=>addPosts()} style={styles.postButton}>
-                <Text style={styles.btnTxt}>POST</Text>
-            </TouchableOpacity>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={{ backgroundColor: 'white' }}
+                        mode="outlined"
+                        label={"POST TITLE"}
+                        value={title}
+                        onChangeText={(title) => setTitle(title)}
+                        placeholder={"ENTER TITLE"}
+                        activeOutlineColor='grey'
+                    theme={{ fonts: { regular: { fontFamily: 'Montserrat_400Regular' } } }}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={{ backgroundColor: 'white' }}
+                        mode="outlined"
+                        label={"POST DESCRIPTION"}
+                        value={description}
+                        onChangeText={(description) => setDescription(description)}
+                        placeholder={"ENTER DESCRIPTION"}
+                        activeOutlineColor='grey'
+                        multiline={true}
+                        numberOfLines={4}
+                    theme={{ fonts: { regular: { fontFamily: 'Montserrat_400Regular' } } }}
+                    />
+                </View>
+                <TouchableOpacity onPress={() => addPosts()} style={styles.postButton}>
+                    <Text style={styles.btnTxt}>POST</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -65,8 +80,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     mainContainer: {
-        flex:1,
-        justifyContent:'center'
+        flex: 1,
+        justifyContent: 'center'
     },
     header: {
         display: 'flex',
@@ -77,7 +92,7 @@ const styles = StyleSheet.create({
     },
     mainHeading: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily:'Montserrat_700Bold'
     },
     inputContainer: {
         margin: 30,
@@ -94,7 +109,7 @@ const styles = StyleSheet.create({
     btnTxt: {
         color: 'white',
         fontSize: 16,
-        fontWeight: 'bold'
+        fontFamily:'Montserrat_700Bold'
     }
 })
 

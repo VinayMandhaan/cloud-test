@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../actions/posts'
 import { Ionicons } from '@expo/vector-icons';
+import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
 
 
 const Home = (props) => {
@@ -26,6 +27,20 @@ const Home = (props) => {
     useEffect(() => {
         getPostData()
     }, [])
+
+    let [fontsLoaded, error] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_600SemiBold,
+        Montserrat_700Bold
+      })
+    
+      if (!fontsLoaded) {
+        return (
+          <View>
+            <Text>Loading</Text>
+          </View>
+        )
+      }
 
 
     return (
@@ -57,7 +72,7 @@ const styles = StyleSheet.create({
     },
     mainHeading: {
         fontSize: 18, 
-        fontWeight: 'bold'
+        fontFamily:'Montserrat_700Bold',
     },
     postContainer: {
         backgroundColor: 'white', 
@@ -73,13 +88,17 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     post:{
-        fontWeight: 'bold', marginRight: 2, textAlign: 'center' 
+        fontFamily:'Montserrat_700Bold',
+        marginRight: 2, 
+        textAlign: 'center' 
     },
     postTitle:{
-        textAlign: 'center', fontWeight: 'bold'
+        textAlign: 'center', 
+        fontFamily:'Montserrat_600SemiBold'
     },
     postBody:{
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily:'Montserrat_400Regular'
     }
 
 });
