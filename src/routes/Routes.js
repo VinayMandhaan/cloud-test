@@ -10,13 +10,22 @@ const Stack = createNativeStackNavigator();
 
 
 const Routes = () => {
-
+    let isAuth = useSelector(state => state.auth.isAuthenticated);
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-                <Stack.Screen name="AddPost" component={AddPost} options={{ headerShown: false }} />
+                {
+                    isAuth ? (
+                        <>
+                            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+                            <Stack.Screen name="AddPost" component={AddPost} options={{ headerShown: false }} />
+                        </>
+                    ) : (
+                        <>
+                            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                        </>
+                    )
+                }
             </Stack.Navigator>
         </NavigationContainer>
     )

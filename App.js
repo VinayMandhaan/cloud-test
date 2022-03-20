@@ -8,12 +8,14 @@ import Home from './src/screens/Home';
 import AddPost from './src/screens/AddPost';
 import Login from './src/screens/Login';
 import Splash from './src/screens/Splash';
+import { loadUser } from './src/actions/auth';
 
 
 export default function App() {
   const [displaySplash, setDisplaySplash] = useState(true)
   useEffect(() => {
     renderSplash()
+    store.dispatch(loadUser())
   },[])
 
   const renderSplash = () => {

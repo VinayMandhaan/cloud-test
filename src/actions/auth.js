@@ -1,43 +1,43 @@
 import axios from 'axios'
-import { LOGIN_SUCCESS, LOGIN_FAIL } from './types'
+import { LOGIN_SUCCESS, LOGIN_FAIL, USER_LOADED } from './types'
 import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
+export const loadUser = () => async dispatch => {
+    try{
+        var userData =  await AsyncStorage.getItem('user')
+        if(userData){
+            dispatch({
+                type:USER_LOADED,
+                payload:userData
+            })
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
 
-export const login = (email,password,navigation) => async dispatch => {
+
+export const login = (data, navigation) => async dispatch => {
     try {
-        const res = await axios({
-            method:'POST',
-            url:'https://reqres.in/api/login',
-            data:{
-                email:email,
-                password:password
-            }
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: JSON.stringify(data)
         })
         Toast.show({
             type: 'success',
             text1: 'Login',
             text2: 'User Logged In 👋'
-          });
-        if(res.data.token){
-            Toast.show({
-                type: 'success',
-                text1: 'Login',
-                text2: 'User Logged In 👋'
-              });
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload:res.data
-            })
-            navigation.navigate('Home')
-        }
+        });
+        navigation.navigate('Home')
     } catch (err) {
         Toast.show({
             type: 'error',
             text1: 'Error',
             text2: 'Incorrect Email or Password'
         });
-        console.log(err,'ERROR')
+        console.log(err, 'ERROR')
         dispatch({
             type: LOGIN_FAIL
         })

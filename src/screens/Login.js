@@ -15,6 +15,7 @@ const Login = (props) => {
   const [state, setState] = useState({});
   const [date, setDate] = useState(new Date())
   const [index, setIndex] = useState(1)
+  const [finalState, setFinalState] = useState({})
 
   const onChange = (e, id, place, label) => {
     console.log(e, id, place)
@@ -38,19 +39,25 @@ const Login = (props) => {
     )
   }
 
-  const handleSubmit = () => {
-    data.map(val => {
-      if (!state[val.label] && val.required) {
-        Toast.show({
-          type: 'error',
-          text1: 'Error',
-          text2: `${val.label} is required.`
-      });
-        console.log(`${val.label} is required`)
-      } else {
-        console.log(state, 'SATE')
-      }
+  const handleSubmit = async() => {
+    var count = 0;
+    var arrayLength = data.length;
+    await data.map(val => {
+        if (!state[val.label] && val.required) {
+          return Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: `${val.label} is required.`
+        });
+      } else{
+        count = count + 1
+      } 
     })
+
+    if(count === arrayLength){
+      userLogin()
+    }
+    
   }
 
   const handleRadio = (id) => {
@@ -72,7 +79,7 @@ const Login = (props) => {
 
 
   const userLogin = () => {
-    dispatch(login(email, password, props.navigation))
+    dispatch(login(state, props.navigation))
   }
 
   const pickImage = async () => {
@@ -120,7 +127,7 @@ const Login = (props) => {
                 <DatePicker  style={{width:'100%', backgroundColor:'#f1f2f6'}} placeholder={val.placeholder} onDateChange={(val) => {
                   setState({
                     ...state,
-                    ['date']: val
+                    "Date of Birth": val
                   })
                 }} />
               </View>
