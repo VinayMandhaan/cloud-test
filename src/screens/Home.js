@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react'
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../actions/posts'
 import { Ionicons } from '@expo/vector-icons';
 import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
+import Header from '../components/Header';
 
 
 const Home = (props) => {
@@ -17,7 +18,6 @@ const Home = (props) => {
     const renderData = ({ item }) => (
         <View style={styles.postContainer}>
             <View style={styles.titleContainer}>
-                <Text style={styles.post}>{item.id}.</Text>
                 <Text style={styles.postTitle}>{item.title.toUpperCase()}</Text>
             </View>
             <Text style={styles.postBody}>{item.body}</Text>
@@ -45,15 +45,14 @@ const Home = (props) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Ionicons name="arrow-back-circle-outline" size={32} color="black" />
-                <Text style={styles.mainHeading}>POSTS</Text>
-                <Ionicons onPress={()=>props.navigation.navigate('AddPost')} name="add-circle-outline" size={32} color="black" />
-            </View>
+            <Header title="Home"/>
             <FlatList
                 data={postData}
                 renderItem={renderData}
             />
+      <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => handleSubmit()}>
+        <Text style={{color:'white', fontWeight:'bold'}}>Add New Post</Text>
+      </TouchableOpacity>
         </View>
     )
 }
@@ -61,7 +60,7 @@ const Home = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5F5F5'
+        backgroundColor: 'white'
     },
     header: {
         display: 'flex',
@@ -78,13 +77,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white', 
         margin: 20, 
         padding: 15, 
-        alignItems: 'center', 
-        borderRadius: 15, 
-        elevation: 2 
+        borderColor:'#442445',
+        borderWidth:2
     },
     titleContainer: {
         display: 'flex', 
-        flexDirection: 'row',
         marginBottom: 10
     },
     post:{
@@ -93,11 +90,10 @@ const styles = StyleSheet.create({
         textAlign: 'center' 
     },
     postTitle:{
-        textAlign: 'center', 
+        color:'black',
         fontFamily:'Montserrat_600SemiBold'
     },
     postBody:{
-        textAlign: 'center',
         fontFamily:'Montserrat_400Regular'
     }
 
