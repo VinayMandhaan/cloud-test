@@ -5,18 +5,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from '../actions/posts';
 import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
 import Header from '../components/Header';
-
+import Toast from 'react-native-toast-message';
 
 
 const AddPost = (props) => {
     const dispatch = useDispatch()
-    const [id, setId] = useState()
-    const [title, setTitle] = useState()
-    const [description, setDescription] = useState()
+    const [id, setId] = useState('')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
     let postData = useSelector(state => state.posts.posts);
 
     const addPosts = () => {
-        dispatch(addPost(postData.length + 1, title, description, props.navigation))
+        console.log(title.length)
+        // if(title.length > 0 && description.length > 0) {
+        //     dispatch(addPost(postData.length + 1, title, description, props.navigation))
+        // } else {
+        //     return Toast.show({
+        //         type: 'error',
+        //         text1: 'Error',
+        //         text2: `Kindly fill all the fields.`
+        //     });
+        // }
     }
 
     let [fontsLoaded, error] = useFonts({
@@ -56,7 +65,7 @@ const AddPost = (props) => {
                 </View>
             </View>
             <View style={{position:'absolute', bottom:20, width:'100%'}}>
-                <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => handleSubmit()}>
+                <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => addPosts()}>
                     <Text style={{ color: 'white', fontWeight: 'bold' }}>Submit</Text>
                 </TouchableOpacity>
                 </View>

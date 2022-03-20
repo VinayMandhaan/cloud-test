@@ -50,7 +50,7 @@ const Home = (props) => {
                 data={postData}
                 renderItem={renderData}
             />
-      <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => handleSubmit()}>
+      <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => props.navigation.navigate('AddPost')}>
         <Text style={{color:'white', fontWeight:'bold'}}>Add New Post</Text>
       </TouchableOpacity>
         </View>
