@@ -1,10 +1,10 @@
 import { React, useState, useEffect } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from '../actions/posts';
 import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
+import Header from '../components/Header';
 
 
 
@@ -23,54 +23,43 @@ const AddPost = (props) => {
         Montserrat_400Regular,
         Montserrat_600SemiBold,
         Montserrat_700Bold
-      })
-    
-      if (!fontsLoaded) {
+    })
+
+    if (!fontsLoaded) {
         return (
-          <View>
-            <Text>Loading</Text>
-          </View>
+            <View>
+                <Text>Loading</Text>
+            </View>
         )
-      }
+    }
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Ionicons onPress={() => props.navigation.navigate('Home')} name="arrow-back-circle-outline" size={32} color="black" />
-                <Text style={styles.mainHeading}>ADD POSTS</Text>
-                <Text></Text>
-            </View>
+            <Header title="Add Post" />
             <View style={styles.mainContainer}>
                 <View style={styles.inputContainer}>
+                    <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>TITLE</Text>
                     <TextInput
-                        style={{ backgroundColor: 'white' }}
-                        mode="outlined"
-                        label={"POST TITLE"}
-                        value={title}
+                        style={{ borderRadius: 10, backgroundColor: '#f1f2f6', height: 50, padding: 10 }} placeholder={"Enter Title"}
                         onChangeText={(title) => setTitle(title)}
-                        placeholder={"ENTER TITLE"}
-                        activeOutlineColor='grey'
-                    theme={{ fonts: { regular: { fontFamily: 'Montserrat_400Regular' } } }}
                     />
                 </View>
                 <View style={styles.inputContainer}>
+                    <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>Description</Text>
                     <TextInput
-                        style={{ backgroundColor: 'white' }}
-                        mode="outlined"
-                        label={"POST DESCRIPTION"}
-                        value={description}
-                        onChangeText={(description) => setDescription(description)}
-                        placeholder={"ENTER DESCRIPTION"}
-                        activeOutlineColor='grey'
-                        multiline={true}
                         numberOfLines={4}
-                    theme={{ fonts: { regular: { fontFamily: 'Montserrat_400Regular' } } }}
+                        multiline={true}
+                        style={{ borderRadius: 10, backgroundColor: '#f1f2f6', padding: 10 }} placeholder={"Enter Description"}
+                        onChangeText={(description) => setDescription(description)}
+
                     />
                 </View>
-                <TouchableOpacity onPress={() => addPosts()} style={styles.postButton}>
-                    <Text style={styles.btnTxt}>POST</Text>
-                </TouchableOpacity>
             </View>
+            <View style={{position:'absolute', bottom:20, width:'100%'}}>
+                <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => handleSubmit()}>
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Submit</Text>
+                </TouchableOpacity>
+                </View>
         </View>
     )
 }
@@ -79,10 +68,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         minHeight: Math.round(Dimensions.get('window').height)
-    },
-    mainContainer: {
-        flex: 1,
-        justifyContent: 'center'
     },
     header: {
         display: 'flex',
@@ -93,12 +78,10 @@ const styles = StyleSheet.create({
     },
     mainHeading: {
         fontSize: 18,
-        fontFamily:'Montserrat_700Bold'
+        fontFamily: 'Montserrat_700Bold'
     },
     inputContainer: {
-        margin: 30,
-        marginBottom: 10,
-        marginTop: 10
+        margin: 10
     },
     postButton: {
         backgroundColor: 'black',
@@ -110,7 +93,7 @@ const styles = StyleSheet.create({
     btnTxt: {
         color: 'white',
         fontSize: 16,
-        fontFamily:'Montserrat_700Bold'
+        fontFamily: 'Montserrat_700Bold'
     }
 })
 
