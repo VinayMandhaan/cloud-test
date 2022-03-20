@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { TextInput, RadioButton } from 'react-native-paper';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput } from 'react-native';
+import { RadioButton } from 'react-native-paper';
 import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
 import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
@@ -12,8 +12,6 @@ import Header from '../components/Header';
 
 const Login = (props) => {
   const dispatch = useDispatch()
-  const [email, setEmail] = useState("eve.holt@reqres.in")
-  const [password, setPassword] = useState("cityslicka")
   const [state, setState] = useState({});
   const [date, setDate] = useState(new Date())
   const [index, setIndex] = useState(1)
@@ -100,44 +98,56 @@ const Login = (props) => {
           switch (val.type) {
             case 'image':
               return (
-                <TouchableOpacity onPress={pickImage}>
-                  <Text>IMAGE</Text>
+                <TouchableOpacity style={{ alignItems: 'center', marginTop:20 }} onPress={pickImage}>
+                  <Image style={{ width: 100, height: 100 }} source={require('../../assets/avatar.png')} />
                 </TouchableOpacity>
               )
             case 'text':
               return (
-                <TextInput key={val.id} placeholder={val.placeholder} label={val.label} onChangeText={(e) => onChange(e, val.id, val.placeholder, val.label)} />
-              )
+                <View style={{ margin: 10 }}>
+                  <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>{val.label.toUpperCase()}</Text>
+                  <TextInput style={{ borderRadius: 10, backgroundColor: '#f1f2f6', height:50, padding:10 }} key={val.id} placeholder={val.placeholder} onChangeText={(e) => onChange(e, val.id, val.placeholder, val.label)} />
+                </View>
+              ) 
             case 'date':
-              return <DatePicker date={date} onDateChange={(val) => {
-                setState({
-                  ...state,
-                  ['date']: val
-                })
-              }} />
+              return (
+              <View style={{marginLeft:10, marginBottom:5 , marginTop:5, marginRight:10}}>
+                <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>{val.label.toUpperCase()}</Text>
+                <DatePicker  style={{width:'100%', backgroundColor:'#f1f2f6'}} placeholder={val.placeholder} onDateChange={(val) => {
+                  setState({
+                    ...state,
+                    ['date']: val
+                  })
+                }} />
+              </View>
+              ) 
             case 'radio':
               return (
-                <>
+                <View style={{marginLeft:10, marginBottom:5 , marginTop:5, marginRight:10}}>
+                  <Text style={{ fontWeight: 'bold', margin: 8, color: '#442445' }}>{val.label.toUpperCase()}</Text>
+                <View style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-evenly'}}>
+                  
                   {
                     val.options.map((opt, i) => (
-                      <>
-                        <Text>{opt.label}</Text>
+                      <View style={{display:'flex', flexDirection:'row', alignItems:'center', marginRight:8}}>
                         <RadioButton
                           key={opt.key}
                           value={opt.key}
                           status={opt.id === index ? 'checked' : 'unchecked'}
                           onPress={() => handleRadio(opt.id)}
                         />
-                      </>
+                        <Text>{opt.label}</Text>
+                      </View>
                     ))
                   }
-                </>
+                </View>
+                </View>
               )
           }
         })
       }
-      <TouchableOpacity style={{ backgroundColor: 'red' }} onPress={() => handleSubmit()}>
-        <Text>HEY</Text>
+      <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => handleSubmit()}>
+        <Text style={{color:'white', fontWeight:'bold'}}>Submit</Text>
       </TouchableOpacity>
     </View>
   );
