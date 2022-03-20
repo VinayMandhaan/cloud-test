@@ -5,13 +5,14 @@ import Routes from './src/routes/Routes';
 import Toast from 'react-native-toast-message';
 import Home from './src/screens/Home';
 import AddPost from './src/screens/AddPost';
+import Login from './src/screens/Login';
 
 
 export default function App() {
   return (
     <Provider store={store}>
     <View style={styles.container}>
-      <AddPost/>
+      <Login/>
       <Toast />
     </View>
     </Provider>

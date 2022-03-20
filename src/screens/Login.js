@@ -41,10 +41,16 @@ const Login = (props) => {
   const handleSubmit = () => {
     data.map(val => {
       if (!state[val.label] && val.required) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: `${val.label} is required.`
+      });
         console.log(`${val.label} is required`)
+      } else {
+        console.log(state, 'SATE')
       }
     })
-    console.log(state, 'SATE')
   }
 
   const handleRadio = (id) => {
@@ -52,15 +58,13 @@ const Login = (props) => {
       setIndex(1)
       setState({
         ...state,
-        "Female": false,
-        "Male": true
+        "Gender": "Male",
       })
     } else if (id === 2) {
       setIndex(2)
       setState({
         ...state,
-        "Male": false,
-        "Female": true
+        "Gender": "Female",
       })
     }
 
