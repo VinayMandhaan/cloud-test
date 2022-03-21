@@ -1,4 +1,4 @@
-# Assignment - 01
+### Assignment - 01
 # Cloud- React Native Test
 
 #### The application is developed using React Native Expo.
