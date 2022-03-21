@@ -17,15 +17,15 @@ const AddPost = (props) => {
 
     const addPosts = () => {
         console.log(title.length)
-        // if(title.length > 0 && description.length > 0) {
-        //     dispatch(addPost(postData.length + 1, title, description, props.navigation))
-        // } else {
-        //     return Toast.show({
-        //         type: 'error',
-        //         text1: 'Error',
-        //         text2: `Kindly fill all the fields.`
-        //     });
-        // }
+        if(title.length > 0 && description.length > 0) {
+            dispatch(addPost(postData.length + 1, title, description, props.navigation))
+        } else {
+            return Toast.show({
+                type: 'error',
+                text1: 'Error',
+                text2: `Kindly fill all the fields.`
+            });
+        }
     }
 
     let [fontsLoaded, error] = useFonts({
