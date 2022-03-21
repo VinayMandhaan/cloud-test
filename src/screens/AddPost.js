@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Dimensions, TextInput } from 
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from '../actions/posts';
-import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
+import { PTSans_400Regular, PTSans_700Bold, useFonts } from '@expo-google-fonts/pt-sans'
 import Header from '../components/Header';
 import Toast from 'react-native-toast-message';
 
@@ -17,7 +17,7 @@ const AddPost = (props) => {
 
     const addPosts = () => {
         console.log(title.length)
-        if(title.length > 0 && description.length > 0) {
+        if (title.length > 0 && description.length > 0) {
             dispatch(addPost(postData.length + 1, title, description, props.navigation))
         } else {
             return Toast.show({
@@ -29,9 +29,8 @@ const AddPost = (props) => {
     }
 
     let [fontsLoaded, error] = useFonts({
-        Montserrat_400Regular,
-        Montserrat_600SemiBold,
-        Montserrat_700Bold
+        PTSans_400Regular,
+        PTSans_700Bold
     })
 
     if (!fontsLoaded) {
@@ -47,28 +46,28 @@ const AddPost = (props) => {
             <Header title="Add Post" />
             <View style={styles.mainContainer}>
                 <View style={styles.inputContainer}>
-                    <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>TITLE</Text>
+                    <Text style={styles.inputLabel}>TITLE</Text>
                     <TextInput
-                        style={{ borderRadius: 10, backgroundColor: '#f1f2f6', height: 50, padding: 10 }} placeholder={"Enter Title"}
+                        style={styles.inputStyle} placeholder={"Enter Title"}
                         onChangeText={(title) => setTitle(title)}
                     />
                 </View>
                 <View style={styles.inputContainer}>
-                    <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>Description</Text>
+                    <Text style={styles.inputLabel}>Description</Text>
                     <TextInput
                         numberOfLines={4}
                         multiline={true}
-                        style={{ borderRadius: 10, backgroundColor: '#f1f2f6', padding: 10 }} placeholder={"Enter Description"}
+                        style={styles.textStyle} placeholder={"Enter Description"}
                         onChangeText={(description) => setDescription(description)}
 
                     />
                 </View>
             </View>
-            <View style={{position:'absolute', bottom:20, width:'100%'}}>
-                <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => addPosts()}>
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Submit</Text>
+            <View style={styles.btnMainContainer}>
+                <TouchableOpacity style={styles.btnContainer} onPress={() => addPosts()}>
+                    <Text style={styles.btnTxt}>Submit</Text>
                 </TouchableOpacity>
-                </View>
+            </View>
         </View>
     )
 }
@@ -76,6 +75,7 @@ const AddPost = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:'white',
         minHeight: Math.round(Dimensions.get('window').height)
     },
     header: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     },
     mainHeading: {
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold'
+        fontFamily: 'PTSans_700Bold'
     },
     inputContainer: {
         margin: 10
@@ -102,7 +102,39 @@ const styles = StyleSheet.create({
     btnTxt: {
         color: 'white',
         fontSize: 16,
-        fontFamily: 'Montserrat_700Bold'
+        fontFamily: 'PTSans_700Bold'
+    },
+    inputLabel: {
+        fontFamily:'PTSans_700Bold',
+        margin: 10,
+        color: '#442445'
+    },
+    inputStyle: {
+        borderRadius: 10,
+        backgroundColor: '#f1f2f6',
+        height: 50,
+        padding: 10
+    },
+    textStyle: {
+        borderRadius: 10, 
+        backgroundColor: '#f1f2f6', 
+        padding: 10 
+    },
+    btnMainContainer: {
+        position: 'absolute', 
+        bottom: 20, 
+        width: '100%'
+    },
+    btnContainer: {
+        backgroundColor: '#442445', 
+        padding: 20, 
+        margin: 10, 
+        alignItems: 'center', 
+        borderRadius: 10
+    },
+    btnTxt: {
+        color: 'white', 
+        fontFamily:'PTSans_700Bold'
     }
 })
 

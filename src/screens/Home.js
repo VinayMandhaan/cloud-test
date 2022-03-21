@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../actions/posts'
 import { Ionicons } from '@expo/vector-icons';
-import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
+import { PTSans_400Regular, PTSans_700Bold, useFonts } from '@expo-google-fonts/pt-sans'
 import Header from '../components/Header';
 
 
@@ -29,9 +29,8 @@ const Home = (props) => {
     }, [])
 
     let [fontsLoaded, error] = useFonts({
-        Montserrat_400Regular,
-        Montserrat_600SemiBold,
-        Montserrat_700Bold
+        PTSans_400Regular,
+        PTSans_700Bold
       })
     
       if (!fontsLoaded) {
@@ -50,8 +49,8 @@ const Home = (props) => {
                 data={postData}
                 renderItem={renderData}
             />
-      <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => props.navigation.navigate('AddPost')}>
-        <Text style={{color:'white', fontWeight:'bold'}}>Add New Post</Text>
+      <TouchableOpacity style={styles.btnContainer} onPress={() => props.navigation.navigate('AddPost')}>
+        <Text style={styles.btnTxt}>Add New Post</Text>
       </TouchableOpacity>
         </View>
     )
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
     },
     mainHeading: {
         fontSize: 18, 
-        fontFamily:'Montserrat_700Bold',
+        fontFamily:'PTSans_700Bold',
     },
     postContainer: {
         backgroundColor: 'white', 
@@ -85,16 +84,27 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     post:{
-        fontFamily:'Montserrat_700Bold',
+        fontFamily:'PTSans_700Bold',
         marginRight: 2, 
         textAlign: 'center' 
     },
     postTitle:{
         color:'black',
-        fontFamily:'Montserrat_600SemiBold'
+        fontFamily:'PTSans_700Bold'
     },
     postBody:{
-        fontFamily:'Montserrat_400Regular'
+        fontFamily:'PTSans_400Regular'
+    },
+    btnContainer: {
+        backgroundColor: '#442445', 
+        padding:20, 
+        margin:10, 
+        alignItems:'center', 
+        borderRadius:10
+    },
+    btnTxt: {
+        color:'white', 
+        fontWeight:'bold'
     }
 
 });

@@ -108,22 +108,22 @@ const Login = (props) => {
           switch (val.type) {
             case 'image':
               return (
-                <TouchableOpacity style={{ alignItems: 'center', marginTop: 20 }} onPress={pickImage}>
-                  <Image style={{ width: 100, height: 100 }} source={require('../../assets/avatar.png')} />
+                <TouchableOpacity style={styles.imgContainer} onPress={pickImage}>
+                  <Image style={styles.userImg} source={require('../../assets/avatar.png')} />
                 </TouchableOpacity>
               )
             case 'text':
               return (
-                <View style={{ margin: 10 }}>
-                  <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>{val.label.toUpperCase()}</Text>
-                  <TextInput style={{ borderRadius: 10, backgroundColor: '#f1f2f6', height: 50, padding: 10 }} key={val.id} placeholder={val.placeholder} onChangeText={(e) => onChange(e, val.id, val.placeholder, val.label)} />
+                <View style={styles.inputContainer}>
+                  <Text style={styles.inputLabel}>{val.label.toUpperCase()}</Text>
+                  <TextInput style={styles.inputStyle} key={val.id} placeholder={val.placeholder} onChangeText={(e) => onChange(e, val.id, val.placeholder, val.label)} />
                 </View>
               )
             case 'date':
               return (
-                <View style={{ marginLeft: 10, marginBottom: 5, marginTop: 5, marginRight: 10 }}>
-                  <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>{val.label.toUpperCase()}</Text>
-                  <DatePicker style={{ width: '100%', backgroundColor: '#f1f2f6' }} placeholder={val.placeholder} onDateChange={(val) => {
+                <View style={styles.dateContainer}>
+                  <Text style={styles.inputLabel}>{val.label.toUpperCase()}</Text>
+                  <DatePicker style={styles.dateStyle} placeholder={val.placeholder} onDateChange={(val) => {
                     setState({
                       ...state,
                       "Date of Birth": val
@@ -206,6 +206,38 @@ const styles = StyleSheet.create({
   },
   radioLabel: {
     fontFamily: 'PTSans_400Regular'
+  },
+  imgContainer: {
+    alignItems: 'center', 
+    marginTop: 20 
+  },
+  userImg: {
+    width:100,
+    height:100
+  },
+  inputContainer: {
+    margin:10
+  },
+  inputLabel: {
+    fontWeight: 'bold', 
+    margin: 10, 
+    color: '#442445'
+  },
+  inputStyle: {
+    borderRadius: 10, 
+    backgroundColor: '#f1f2f6', 
+    height: 50, 
+    padding: 10
+  },
+  dateContainer: {
+    marginLeft: 10, 
+    marginBottom: 5, 
+    marginTop: 5, 
+    marginRight: 10
+  },
+  dateStyle: {
+    width: '100%', 
+    backgroundColor: '#f1f2f6'
   }
 });
 
