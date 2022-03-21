@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat'
+import { PTSans_400Regular, PTSans_700Bold, useFonts } from '@expo-google-fonts/pt-sans'
 import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import Toast from 'react-native-toast-message';
@@ -26,9 +26,8 @@ const Login = (props) => {
   };
 
   let [fontsLoaded, error] = useFonts({
-    Montserrat_400Regular,
-    Montserrat_600SemiBold,
-    Montserrat_700Bold
+    PTSans_400Regular,
+    PTSans_700Bold
   })
 
   if (!fontsLoaded) {
@@ -39,25 +38,25 @@ const Login = (props) => {
     )
   }
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     var count = 0;
     var arrayLength = data.length;
     await data.map(val => {
-        if (!state[val.label] && val.required) {
-          return Toast.show({
-            type: 'error',
-            text1: 'Error',
-            text2: `${val.label} is required.`
+      if (!state[val.label] && val.required) {
+        return Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: `${val.label} is required.`
         });
-      } else{
+      } else {
         count = count + 1
-      } 
+      }
     })
 
-    if(count === arrayLength){
+    if (count === arrayLength) {
       userLogin()
     }
-    
+
   }
 
   const handleRadio = (id) => {
@@ -109,7 +108,7 @@ const Login = (props) => {
           switch (val.type) {
             case 'image':
               return (
-                <TouchableOpacity style={{ alignItems: 'center', marginTop:20 }} onPress={pickImage}>
+                <TouchableOpacity style={{ alignItems: 'center', marginTop: 20 }} onPress={pickImage}>
                   <Image style={{ width: 100, height: 100 }} source={require('../../assets/avatar.png')} />
                 </TouchableOpacity>
               )
@@ -117,48 +116,48 @@ const Login = (props) => {
               return (
                 <View style={{ margin: 10 }}>
                   <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>{val.label.toUpperCase()}</Text>
-                  <TextInput style={{ borderRadius: 10, backgroundColor: '#f1f2f6', height:50, padding:10 }} key={val.id} placeholder={val.placeholder} onChangeText={(e) => onChange(e, val.id, val.placeholder, val.label)} />
+                  <TextInput style={{ borderRadius: 10, backgroundColor: '#f1f2f6', height: 50, padding: 10 }} key={val.id} placeholder={val.placeholder} onChangeText={(e) => onChange(e, val.id, val.placeholder, val.label)} />
                 </View>
-              ) 
+              )
             case 'date':
               return (
-              <View style={{marginLeft:10, marginBottom:5 , marginTop:5, marginRight:10}}>
-                <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>{val.label.toUpperCase()}</Text>
-                <DatePicker  style={{width:'100%', backgroundColor:'#f1f2f6'}} placeholder={val.placeholder} onDateChange={(val) => {
-                  setState({
-                    ...state,
-                    "Date of Birth": val
-                  })
-                }} />
-              </View>
-              ) 
+                <View style={{ marginLeft: 10, marginBottom: 5, marginTop: 5, marginRight: 10 }}>
+                  <Text style={{ fontWeight: 'bold', margin: 10, color: '#442445' }}>{val.label.toUpperCase()}</Text>
+                  <DatePicker style={{ width: '100%', backgroundColor: '#f1f2f6' }} placeholder={val.placeholder} onDateChange={(val) => {
+                    setState({
+                      ...state,
+                      "Date of Birth": val
+                    })
+                  }} />
+                </View>
+              )
             case 'radio':
               return (
-                <View style={{marginLeft:10, marginBottom:5 , marginTop:5, marginRight:10}}>
-                  <Text style={{ fontWeight: 'bold', margin: 8, color: '#442445' }}>{val.label.toUpperCase()}</Text>
-                <View style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-evenly'}}>
-                  
-                  {
-                    val.options.map((opt, i) => (
-                      <View style={{display:'flex', flexDirection:'row', alignItems:'center', marginRight:8}}>
-                        <RadioButton
-                          key={opt.key}
-                          value={opt.key}
-                          status={opt.id === index ? 'checked' : 'unchecked'}
-                          onPress={() => handleRadio(opt.id)}
-                        />
-                        <Text>{opt.label}</Text>
-                      </View>
-                    ))
-                  }
-                </View>
+                <View style={styles.radioMainContainer}>
+                  <Text style={styles.radioHeadingLabel}>{val.label.toUpperCase()}</Text>
+                  <View style={styles.radioContainer}>
+
+                    {
+                      val.options.map((opt, i) => (
+                        <View style={styles.radioBtn}>
+                          <RadioButton
+                            key={opt.key}
+                            value={opt.key}
+                            status={opt.id === index ? 'checked' : 'unchecked'}
+                            onPress={() => handleRadio(opt.id)}
+                          />
+                          <Text style={styles.radioLabel}>{opt.label}</Text>
+                        </View>
+                      ))
+                    }
+                  </View>
                 </View>
               )
           }
         })
       }
-      <TouchableOpacity style={{ backgroundColor: '#442445', padding:20, margin:10, alignItems:'center', borderRadius:10 }} onPress={() => handleSubmit()}>
-        <Text style={{color:'white', fontWeight:'bold'}}>Submit</Text>
+      <TouchableOpacity style={styles.btnContainer} onPress={() => handleSubmit()}>
+        <Text style={styles.submitBtn}>Submit</Text>
       </TouchableOpacity>
     </View>
   );
@@ -171,34 +170,42 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     minHeight: Math.round(Dimensions.get('window').height)
   },
-  loginHeading: {
-    fontFamily: 'Montserrat_400Regular'
-  },
-  loginStyle: {
-    backgroundColor: 'black',
-    width: 40,
-    height: 2,
-    marginTop: 5
-  },
-  mainHeading: {
-    fontFamily: 'Montserrat_400Regular',
-    fontSize: 28
-  },
-  subHeading: {
-    fontFamily: 'Montserrat_700Bold',
-    fontSize: 28
-  },
-  btnStyle: {
-    backgroundColor: 'black',
-    padding: 15,
-    margin: 30,
+  btnContainer: {
+    backgroundColor: '#442445',
+    padding: 20,
+    margin: 10,
     alignItems: 'center',
-    borderRadius: 15
+    borderRadius: 10
   },
-  btnTxt: {
+  submitBtn: {
     color: 'white',
-    fontSize: 16,
-    fontFamily: 'Montserrat_700Bold'
+    fontFamily: 'PTSans_700Bold'
+  },
+  radioMainContainer: {
+    marginLeft: 10, 
+    marginBottom: 5, 
+    marginTop: 5, 
+    marginRight: 10
+  },
+  radioHeadingLabel: {
+    fontFamily: 'PTSans_700Bold', 
+    margin: 8, 
+    color: '#442445'
+  },
+  radioContainer: {
+    display: 'flex', 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-evenly'
+  },
+  radioBtn: {
+    display: 'flex', 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginRight: 8
+  },
+  radioLabel: {
+    fontFamily: 'PTSans_400Regular'
   }
 });
 

@@ -1081,6 +1081,11 @@
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/montserrat/-/montserrat-0.2.2.tgz#1c2522b6fcacf7a3b561db2f3fd7a90a52613db1"
   integrity sha512-kpK++6mnyPPNVuZQ5ScU/YmvNsbDQGNgxwPgkmAKFrctAhfwg4KxotmmuNnn2ZaKLPtGYjP8/M8JIO3/tAm9ag==
 
+"@expo-google-fonts/pt-sans@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/pt-sans/-/pt-sans-0.2.2.tgz#c85aca59d0fe0913571e6bb13a2e1732f1be5c05"
+  integrity sha512-ddFmSF2OMxEs1wwpg6uR4vAghYLHLtBfcoutQRDbuRy764eq3jblBpa2vN9IWIxOY+IBofhtiN284GyMim9OrQ==
+
 "@expo/config-plugins@4.0.6":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-4.0.6.tgz#ef52f0e4d96ddd52b4cd4cc8c6efbe3d9576c72d"
